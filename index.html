@@ -302,7 +302,7 @@ function expandedEventHTML(x){
     ${place?`<p>📍 ${esc(place)}</p>`:''}
     ${desc?`<p>${esc(desc)}</p>`:''}
     ${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(w.details)}</a></p>`:''}
-    <button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button type="button" data-edit-id="${esc(x.id)}">수정</button><button type="button" data-delete-id="${esc(x.id)}">삭제</button></div>`:''}
+    <button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button type="button" data-edit-id="${esc(x.id)}">수정</button><button type="button" data-copy-id="${esc(x.id)}">📋 복제</button><button type="button" data-delete-id="${esc(x.id)}">삭제</button></div>`:''}
   </div>
  </article>`;
 }
@@ -355,7 +355,7 @@ function render(){
  const list=entries.filter(x=>(category==='all'||(category==='other'?['other','ticket'].includes(effectiveType(x)):effectiveType(x)===category))&&x.date.startsWith(`${year}-${String(month+1).padStart(2,'0')}`)&&(viewMode==='all'||(selected&&x.date===selected))).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
  $('events').innerHTML=viewMode==='date'&&!selected?`<p class="muted">${lang==='ko'?'달력에서 날짜를 선택해 주세요.':lang==='zh'?'请在日历中选择日期。':t.pickDate}</p>`:list.length?list.map(x=>{
   const poster=eventPoster(x),desc=eventText(x,'desc'),place=eventText(x,'place');
-  return `<article class="event" data-event-card="${esc(x.id)}" tabindex="0" role="button" aria-label="${esc(eventText(x,'title'))}">${poster?`<button class="poster-open" type="button" data-poster-id="${esc(x.id)}" aria-label="${esc(largeViewWords[lang].image)}"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(eventText(x,'title'))}"></button>`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(eventText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${place?`<p>📍 ${esc(place)}</p>`:''}${desc?`<p>${esc(desc)}</p>`:''}<div class="event-actions"><button type="button" class="event-detail-button" data-event-detail="${esc(x.id)}">${lang==='ko'?'상세 보기':lang==='zh'?'查看详情':'詳細を見る'}</button><button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<button type="button" onclick="editItem('${esc(x.id)}')">수정</button><button type="button" onclick="deleteItem('${esc(x.id)}')">삭제</button>`:''}</div></div></article>`;
+  return `<article class="event" data-event-card="${esc(x.id)}" tabindex="0" role="button" aria-label="${esc(eventText(x,'title'))}">${poster?`<button class="poster-open" type="button" data-poster-id="${esc(x.id)}" aria-label="${esc(largeViewWords[lang].image)}"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(eventText(x,'title'))}"></button>`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(eventText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${place?`<p>📍 ${esc(place)}</p>`:''}${desc?`<p>${esc(desc)}</p>`:''}<div class="event-actions"><button type="button" class="event-detail-button" data-event-detail="${esc(x.id)}">${lang==='ko'?'상세 보기':lang==='zh'?'查看详情':'詳細を見る'}</button><button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<button type="button" onclick="editItem('${esc(x.id)}')">수정</button><button type="button" data-copy-id="${esc(x.id)}">📋 복제</button><button type="button" onclick="deleteItem('${esc(x.id)}')">삭제</button>`:''}</div></div></article>`;
  }).join(''):`<p class="muted">${t.empty}</p>`;
  const dialog=$('dayDialog');if(dialog.open&&dialog.dataset.date)refreshDayDialog();
 }
@@ -377,6 +377,23 @@ function toggleAdmin(){adminOpen=!adminOpen;syncAdminPanels();if(adminOpen)(curr
 function syncAdminPanels(){admin=!!currentUser&&adminOpen;$('loginpanel').hidden=!adminOpen||!!currentUser;$('editor').hidden=!admin;$('adminBtn').textContent=lang==='ja'?(adminOpen?words.ja.adminOpen:words.ja.adminClosed):(adminOpen?'⚙ 관리자 닫기':'⚙ 관리자');$('accountStatus').textContent=currentUser?`로그인: ${currentUser.email}`:'';$('migration').hidden=!admin||entries.length>0;render()}
 function resetForm(){posterData='';showPoster('');$('eventform').reset();$('editid').value='';$('date').value=`${year}-${String(month+1).padStart(2,'0')}-01`;$('status').textContent=''}
 function editItem(id){if(!currentUser)return;let x=entries.find(e=>e.id===id);if(!x)return;['date','time','titleko','titlezh','titleja','placeko','placezh','placeja','type','descko','desczh','descja','link'].forEach(k=>$(k).value=x[k]||'');$('type').value=effectiveType(x);$('image').value=x.image&&x.image.startsWith('https://')?x.image:'';posterData=x.image||'';showPoster(posterData);$('editid').value=id;$('editor').scrollIntoView({behavior:'smooth'})}
+function copyItem(id){
+ if(!currentUser)return;
+ const source=entries.find(e=>String(e.id)===String(id));
+ if(!source)return;
+ // Fill all fields using the existing edit form, but never reuse the source document ID.
+ editItem(source.id);
+ $('editid').value='';
+ $('status').textContent='📋 일정 복제 준비 완료! 날짜·시간을 변경한 뒤 「일정 저장」을 누르세요. 원본은 유지됩니다.';
+ $('date').focus({preventScroll:true});
+}
+document.addEventListener('click',e=>{
+ const button=e.target.closest('[data-copy-id]');
+ if(!button)return;
+ e.preventDefault();e.stopPropagation();
+ const modal=$('dayDialog');if(modal.open)closeModal(modal);
+ copyItem(button.dataset.copyId);
+});
 async function deleteItem(id){if(!currentUser)return;if(!confirm('이 일정을 Firebase에서 삭제할까요?'))return;try{await deleteDoc(doc(db,'events',id));$('status').textContent='삭제 완료'}catch(err){$('status').textContent='삭제 실패: 관리자 권한 또는 네트워크를 확인해 주세요.';console.error(err)}}
 $('eventform').onsubmit=async e=>{e.preventDefault();if(!currentUser)return;let x={};['date','time','titleko','titlezh','titleja','placeko','placezh','placeja','type','descko','desczh','descja','image','link'].forEach(k=>x[k]=$(k).value.trim());x.image=posterData||x.image;x.id=$('editid').value||('id'+Date.now()+'_'+Math.random().toString(36).slice(2,8));$('status').textContent='Firebase에 저장 중...';try{await setDoc(doc(db,'events',x.id),x);let d=x.date.split('-');year=+d[0];month=+d[1]-1;selected=null;viewMode='all';resetForm();render();$('status').textContent='저장 완료! 팬들의 달력에 반영됩니다.'}catch(err){$('status').textContent='저장 실패: 관리자 UID/보안 규칙 또는 네트워크를 확인해 주세요.';console.error(err)}};
 $('loginform').onsubmit=async e=>{e.preventDefault();$('loginstatus').textContent='로그인 중...';$('loginSubmit').disabled=true;try{await signInWithEmailAndPassword(auth,$('loginemail').value.trim(),$('loginpassword').value);$('loginpassword').value='';$('loginstatus').textContent=''}catch(err){$('loginstatus').textContent='로그인 실패: 이메일·비밀번호 또는 Firebase 인증 설정을 확인해 주세요.';console.error(err)}finally{$('loginSubmit').disabled=false}};
