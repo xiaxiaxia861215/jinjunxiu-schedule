@@ -3,32 +3,105 @@
 <style>
 :root{font-family:system-ui,'Malgun Gothic',sans-serif;color:#432439;background:#fff4f9}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#35172f,#863052 58%,#d38ca6);color:white;padding:28px 20px}header.has-banner{background-size:cover;background-position:center}header.has-banner .wrap{position:relative;z-index:1}header .wrap,nav .wrap{max-width:1680px;margin:auto}h1{font: bold 52px Georgia,serif;letter-spacing:5px;margin:0}header p{margin:4px 0;color:#ffe8f1}nav{background:#652747;color:white;padding:12px 18px}nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.actions{display:flex;gap:7px}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:9px 12px;background:#f8dfe9;color:#692744}button.active{background:white;font-weight:700}button:disabled{opacity:.55;cursor:wait}.loginbox{background:#fff8fb;border:1px solid #efd3df;border-radius:12px;padding:14px;margin-top:14px}.loginbox .formgrid{align-items:end}.notice{padding:10px;background:#fff4e5;border-radius:9px;font-size:12px;margin:10px 0}.hidden{display:none!important}main{max-width:1680px;margin:22px auto;padding:0 24px}.layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(310px,3fr);gap:16px}.panel{background:white;border:1px solid #efd3df;border-radius:16px;padding:16px;box-shadow:0 6px 18px #632d4910}.monthbar{display:flex;align-items:center;justify-content:space-between}.monthbar h2{font-size:19px;margin:0}.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:15px}.weekday{text-align:center;font-size:12px;font-weight:700;padding:5px;color:#87536a}.day{min-height:145px;display:flex;flex-direction:column;gap:3px;background:#fff7fa;border:1px solid #f1dbe5;border-radius:8px;padding:5px 3px;text-align:left;overflow:hidden}.day:has(.cal-poster){min-height:170px}.day.blank{background:none;border:0}.day.selected{outline:2px solid #b4417b}.num{font-size:12px;font-weight:700}.chip{font-size:11px;background:#f6d7e7;border-radius:4px;padding:3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cal-poster{width:100%;height:94px;object-fit:cover;object-position:center 30%;border-radius:5px;margin-top:2px}.cal-more{font-size:10px;color:#79485e}.chip.concert{background:#e7ddff}.chip.ticket{background:#fff0bd}.chip.broadcast{background:#dcefff}
 .chip.event{background:#dcefff}.chip.musical{background:#f8d2e2}.viewmodes{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.viewmodes button{font-size:12px;padding:9px 11px;background:#fff3f8;border:1px solid #edccda}.viewmodes button.active{background:#8d345c;color:white;border-color:#8d345c}.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}.tabs button{font-size:12px;padding:8px 10px;background:#fff3f8;border:1px solid #edccda}.tabs button.active{background:#8d345c;color:white;border-color:#8d345c}.photoarea{margin:12px 0;padding:12px;border:1px dashed #d5a5b9;border-radius:12px;background:#fff9fc}.photoarea input[type=file]{max-width:100%;background:white}.preview{max-width:130px;max-height:175px;object-fit:contain;border-radius:8px;margin-top:9px;display:none}.preview.show{display:block}.smallhint{font-size:12px;color:#85677b}h3{margin:2px 0 13px;font-size:18px}.event{display:flex;gap:12px;border:1px solid #f0dce6;border-radius:12px;padding:12px;margin-bottom:10px}.poster{width:60px;height:76px;border-radius:7px;flex-shrink:0;object-fit:cover;background:linear-gradient(135deg,#572040,#d88da9);display:grid;place-items:center;color:white;font:20px Georgia,serif}.event h4{font-size:14px;margin:3px 0}.event p{font-size:12px;color:#74596b;margin:5px 0}.tag{font-size:10px;color:#963963;background:#f8e1ec;padding:3px 7px;border-radius:20px}.muted{font-size:12px;color:#87677b}.admin{margin-top:17px}.admin[hidden]{display:none}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{display:block;font-size:12px;font-weight:700;margin:10px 0 4px}input,select,textarea{width:100%;border:1px solid #e6cbd7;border-radius:8px;padding:9px;background:white}textarea{min-height:65px}.editactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.editactions button{font-size:12px}.primary{background:#a83e71;color:white}.foot{text-align:center;font-size:12px;color:#896b7c;margin:22px 0}a{color:#a23b6e}@media(max-width:900px){.layout{grid-template-columns:1fr}.day{min-height:85px}.day:has(.cal-poster){min-height:110px}.cal-poster{height:54px}.chip{font-size:9px}.formgrid{grid-template-columns:1fr}h1{font-size:42px}}
- 
-/* Responsive desktop / tablet / phone layouts */
-.actions{flex-wrap:wrap}.day{cursor:pointer}.cal-poster,.event .poster{cursor:zoom-in}
-.zoom-overlay{position:fixed;inset:0;background:#160c16d9;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
-.zoom-card{position:relative;background:white;border-radius:18px;padding:24px;max-width:min(92vw,820px);width:100%;max-height:92dvh;overflow:auto;box-shadow:0 12px 45px #0005}
-.zoom-card img{display:block;max-width:100%;max-height:75dvh;object-fit:contain;margin:auto;border-radius:10px}
-.zoom-close{position:sticky;top:0;float:right;z-index:2;font-size:19px;background:#6c294c;color:white}
-.zoom-card h2{margin:12px 0}.zoom-card p{overflow-wrap:anywhere}
-@media(max-width:700px){
-header{padding:18px 14px}header h1{font-size:38px}nav{padding:10px}nav .wrap{align-items:flex-start;flex-direction:column}
-.actions{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
-.actions button{padding:9px 3px;font-size:11px;min-width:0}
-main{padding:0 8px;margin:10px auto}.layout{display:flex;flex-direction:column;gap:10px}.panel{padding:10px;border-radius:12px}
-.days{gap:2px;margin-top:10px}.weekday{font-size:11px}.day{min-height:65px;padding:4px 2px;gap:2px;border-radius:5px}
-.day:has(.cal-poster){min-height:90px}.num{font-size:12px}.cal-poster{height:48px}
-.chip{font-size:9px;line-height:1.25;padding:2px;white-space:normal;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cal-more{font-size:9px}.event{padding:9px;gap:8px}.event .poster{width:54px;height:72px}
-.tabs,.viewmodes{gap:4px}.tabs button,.viewmodes button{font-size:11px;padding:8px}
-.zoom-overlay{padding:8px}.zoom-card{max-width:100%;padding:14px;max-height:95dvh}
+
+/* Site-wide banner: image stays independent from the gradient and XIA title. */
+header{position:relative;overflow:hidden;min-height:var(--banner-height,170px);display:flex;align-items:center}
+header .wrap{width:100%;position:relative;z-index:2}
+header.has-banner{background-size:auto;background-position:initial}
+.banner-art{-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 25%);mask-image:linear-gradient(to right,transparent 0%,#000 25%);position:absolute;z-index:1;top:50%;left:var(--banner-x,80%);transform:translate(-50%,-50%);width:var(--banner-width,30%);height:calc(var(--banner-height,170px) - 12px);object-fit:cover;object-position:center;pointer-events:none}
+.banner-preview-stage{position:relative;min-height:var(--banner-height,170px);background:linear-gradient(110deg,#35172f,#863052 58%,#d38ca6);color:white;border-radius:10px;overflow:hidden;display:flex;align-items:center;margin-top:10px}
+.banner-preview-stage .banner-copy{padding:22px;position:relative;z-index:2}
+.banner-preview-stage .banner-copy strong{font:bold 38px Georgia,serif;letter-spacing:4px;display:block}
+.banner-preview-stage .banner-copy small{font-size:11px;color:#ffe8f1;display:block;margin-top:5px}
+.banner-preview-stage .banner-art{max-width:none}header .wrap{pointer-events:none}header .wrap:before{content:none!important}
+.banner-control{margin-top:12px}
+.banner-control label{display:flex;justify-content:space-between;gap:12px}
+.banner-control input[type=range]{width:100%}
+@media(max-width:600px){header .wrap{max-width:58%;margin-left:0}header h1{font-size:35px}header p{font-size:10px}.banner-preview-stage .banner-copy{max-width:60%;padding:12px}.banner-preview-stage .banner-copy strong{font-size:27px}}
+
+/* Smooth photo blending; works on desktop, Galaxy phones and tablets. */
+.banner-art{opacity:var(--banner-opacity,.9);-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.25) 12%,#000 var(--banner-fade,55%),#000 100%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.25) 12%,#000 var(--banner-fade,55%),#000 100%)}
+header .wrap{background:none!important;box-shadow:none!important}
+#cropEditor{position:relative;isolation:isolate;overflow:hidden}
+#cropBox{overflow:hidden!important;isolation:isolate}
+#cropRect{box-shadow:0 0 0 1000px rgba(0,0,0,.36)!important}
+#cropHandle{width:28px!important;height:28px!important;right:-7px!important;bottom:-7px!important}
+.banner-control input[type=range]{min-height:36px;accent-color:#96385f;touch-action:pan-y}
+#bannerManager button{min-height:42px;max-width:100%}
+#bannerManager input[type=file]{max-width:100%;width:100%}
+@media(max-width:700px){header{padding:16px 12px;min-height:150px}header .wrap{max-width:52%;}header h1{font-size:clamp(29px,7vw,42px)}header p{font-size:10px;overflow-wrap:anywhere}.banner-art{height:100%;max-height:none}.banner-preview-stage .banner-copy{max-width:53%}.banner-preview-stage .banner-copy strong{font-size:30px}#bannerManager .editactions{flex-wrap:wrap}#cropBox{width:100%}}
+
+/* Three languages remain usable on Galaxy phones and tablets. */
+nav .actions{flex-wrap:wrap}nav .actions button{min-height:40px;white-space:nowrap}
+@media(max-width:650px){
+ nav{padding:10px 12px} nav .wrap{display:block}
+ #navtitle{display:block;font-size:13px;margin-bottom:10px}
+ nav .actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;width:100%}
+ nav .actions button{padding:9px 5px;font-size:12px;min-width:0}
+ nav .language-name{display:none}
+ #adminBtn{font-size:11px}
 }
-@media(max-width:380px){.chip{font-size:8px}.day{min-height:58px}.day:has(.cal-poster){min-height:82px}.cal-poster{height:40px}}
+
+/* Calendar-to-detail zoom: accessible on desktop, Galaxy phone and Galaxy Tab. */
+.day:not(.blank){cursor:pointer;transition:border-color .16s,background-color .16s,box-shadow .16s}
+.day:not(.blank):hover,.day:not(.blank):focus-visible{border-color:#b5457c;background:#fff0f7;box-shadow:0 0 0 2px #e9b4cd66}
+.day .cal-poster{object-fit:contain;background:#f8eaf0}
+.day .cal-more{font-weight:700}
+.event .poster{width:86px;height:112px;object-fit:contain;background:#fcf0f5}
+.event .poster-open{background:transparent;display:block;flex:none;padding:0;border:0;border-radius:8px;align-self:start}
+.event .poster-open:focus-visible{outline:3px solid #a83e71;outline-offset:3px}
+.event .poster-open .poster{display:block;cursor:zoom-in}
+.xia-modal{position:fixed;inset:0;margin:auto;width:min(920px,calc(100vw - 24px));max-width:920px;max-height:min(90vh,90dvh);border:1px solid #e9c7d8;border-radius:18px;padding:0;background:#fff9fc;color:#432439;box-shadow:0 22px 90px #35112a77;overflow:hidden}
+.xia-modal:not([open]){display:none}
+.xia-modal::backdrop{background:rgba(32,12,28,.68);backdrop-filter:blur(3px)}
+.xia-modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;background:#f9e7f0;border-bottom:1px solid #edd0dc}
+.xia-modal-header h2{font-size:clamp(17px,2.5vw,23px);margin:0;line-height:1.3}
+.xia-modal-close{flex:none;min-width:44px;min-height:44px;background:white;color:#74284c;font-size:22px;line-height:1;border:1px solid #eac4d6}
+.xia-modal-body{max-height:calc(90dvh - 76px);overflow-y:auto;overscroll-behavior:contain;padding:18px}
+.xia-expanded-event{display:grid;grid-template-columns:minmax(165px,36%) minmax(0,1fr);gap:18px;align-items:start;margin-bottom:16px;padding:16px;border-radius:14px;background:white;border:1px solid #efd7e3}
+.xia-expanded-event:last-child{margin-bottom:0}
+.xia-expanded-poster{display:block;width:100%;max-width:330px;max-height:56vh;object-fit:contain;margin:0 auto;border-radius:10px;background:#fff2f8}
+.xia-poster-zoom{display:block;width:100%;padding:0;border:0;background:#fff2f8;border-radius:10px;cursor:zoom-in}
+.xia-poster-zoom:focus-visible{outline:3px solid #a83e71;outline-offset:3px}
+.xia-expanded-placeholder{display:grid;place-items:center;min-height:220px;background:linear-gradient(135deg,#602344,#d99bb8);font:42px Georgia,serif;color:#fff;border-radius:10px}
+.xia-expanded-content h3{font-size:clamp(17px,2.5vw,24px);margin:10px 0 14px;line-height:1.45;overflow-wrap:anywhere}
+.xia-expanded-content p{font-size:14px;line-height:1.65;color:#65415b;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0}
+.xia-expanded-content a{overflow-wrap:anywhere;font-size:14px;font-weight:700}
+.xia-expanded-label{display:inline-block;background:#f7e2ee;color:#8d345c;font-weight:700;font-size:12px;padding:5px 10px;border-radius:100px}
+.xia-zoom-hint{color:#956b80!important;font-size:12px!important;text-align:center}
+.xia-image-modal{width:min(970px,calc(100vw - 14px));max-height:96dvh;background:#1e101c;border-color:#63344c;color:white}
+.xia-image-modal .xia-modal-header{background:#2c1527;border-color:#683b57;color:#fff}
+.xia-image-modal .xia-modal-close{background:#4a2741;color:white;border-color:#69435a}
+.xia-image-modal .xia-modal-body{height:calc(96dvh - 78px);max-height:calc(96dvh - 78px);display:flex;align-items:center;justify-content:center;padding:12px}
+#zoomedPoster{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:5px}
+@media(max-width:650px){
+ .day{min-height:94px}.day:has(.cal-poster){min-height:125px}.day .cal-poster{height:63px}
+ .event .poster{width:79px;height:106px}
+ .xia-modal{width:calc(100vw - 12px);max-height:94dvh;border-radius:14px}
+ .xia-modal-header{padding:11px 12px}
+ .xia-modal-body{padding:12px;max-height:calc(94dvh - 68px)}
+ .xia-expanded-event{display:block;padding:12px}
+ .xia-expanded-poster{max-width:min(100%,340px);max-height:52dvh;min-height:0}
+ .xia-expanded-content h3{font-size:18px;margin:10px 0}
+ .xia-expanded-content p{font-size:13px}
+ .xia-image-modal{width:calc(100vw - 6px);max-height:98dvh}
+ .xia-image-modal .xia-modal-body{height:calc(98dvh - 66px);max-height:calc(98dvh - 66px)}
+}
 </style></head><body>
-<header><div class="wrap"><h1>XIA</h1><p>KIM JUN SU · Fan Schedule Calendar</p><p style="font-size:12px">Made with love by a fan ♡</p></div></header>
-<nav><div class="wrap"><strong id="navtitle">김준수 팬 일정 달력</strong><div class="actions"><button id="ko" class="active" onclick="language('ko')">KR 한국어</button><button id="zh" onclick="language('zh')">CN 简体中文</button><button id="ja" onclick="language('ja')">JP 日本語</button><button id="adminBtn" onclick="toggleAdmin()">⚙ 관리자</button></div></div></nav>
+<header><img class="banner-art" id="headerBannerArt" alt="" style="display:none"><div class="wrap"><h1>XIA</h1><p>KIM JUN SU · Fan Schedule Calendar</p><p style="font-size:12px">Made with love by a fan ♡</p></div></header>
+<nav><div class="wrap"><strong id="navtitle">김준수 팬 일정 달력</strong><div class="actions"><button id="ko" class="active" onclick="language('ko')" lang="ko" aria-pressed="true"><span>KR</span><span class="language-name"> 한국어</span></button><button id="zh" onclick="language('zh')" lang="zh-CN" aria-pressed="false"><span>CN</span><span class="language-name"> 简体中文</span></button><button id="ja" onclick="language('ja')" lang="ja" aria-pressed="false"><span>JP</span><span class="language-name"> 日本語</span></button><button id="adminBtn" onclick="toggleAdmin()">⚙ 관리자</button></div></div></nav>
 <main><div class="layout"><section class="panel"><div class="monthbar"><button onclick="shift(-1)">❮</button><h2 id="monthtitle"></h2><button onclick="shift(1)">❯</button></div><div class="days" id="calendar"></div><p class="muted" id="hint"></p></section><section class="panel"><h3 id="eventtitle"></h3><div class="viewmodes" id="viewmodes" role="group" aria-label="일정 보기 방식"></div><div class="tabs" id="eventtabs" role="group" aria-label="일정 종류"></div><div id="events"></div></section></div>
-<section class="panel admin" id="loginpanel" hidden><h3>🔐 관리자 로그인</h3><p class="muted">관리자 계정으로 로그인하면 일정 수정 화면이 열립니다. 팬은 로그인하지 않아도 달력을 볼 수 있습니다.</p><form id="loginform" class="formgrid"><div><label>이메일</label><input type="email" id="loginemail" autocomplete="username" required></div><div><label>비밀번호</label><input type="password" id="loginpassword" autocomplete="current-password" required></div><div><button class="primary" type="submit" id="loginSubmit">로그인</button></div></form><p id="loginstatus" class="muted" role="status"></p></section><section class="panel admin" id="editor" hidden><h3>일정 관리 · 한국어 입력</h3><p class="muted">Firebase에 저장한 일정은 팬들에게 실시간으로 공유됩니다. 한국어·중국어·일본어 문구를 확인하고 저장해 주세요.</p><div class="notice" id="migration" hidden>기존 시제품에 들어 있던 11개 일정은 아직 공유되지 않았습니다. 공식 일정을 확인한 후 아래 버튼으로 Firebase에 등록할 수 있습니다. <button type="button" id="migrateBtn">기존 11개 일정 등록</button></div><div class="editactions"><button type="button" id="logoutBtn">로그아웃</button><span class="muted" id="accountStatus"></span></div><form id="eventform"><input type="hidden" id="editid"><div class="formgrid"><div><label>일정명 (한국어) *</label><input id="titleko" required></div><div><label>일정명 (일본어)</label><input id="titleja" placeholder="일본어 번역 입력"></div><div><label>일정명 (중국어 간체)</label><input id="titlezh" placeholder="번역 후 붙여넣기"></div><div><label>날짜 *</label><input id="date" type="date" required></div><div><label>시간</label><input id="time" type="time"></div><div><label>장소 (한국어)</label><input id="placeko"></div><div><label>장소 (일본어)</label><input id="placeja" placeholder="일본어 번역 입력"></div><div><label>장소 (중국어 간체)</label><input id="placezh"></div><div><label>종류</label><select id="type"><option value="concert">콘서트</option><option value="musical">뮤지컬</option><option value="broadcast">방송</option><option value="event">행사</option><option value="ticket">티켓팅</option><option value="other">기타</option></select></div><div><label>포스터 이미지 URL (선택)</label><input id="image" type="url" placeholder="https://..."></div></div><div class="photoarea"><label for="posterfile">📷 포스터 사진 직접 선택 (JPG·PNG·WebP)</label><input type="file" id="posterfile" accept="image/jpeg,image/png,image/webp"><p class="smallhint">사진을 자동 축소해 일정 데이터에 함께 저장합니다. 별도 사진 주소나 Storage 요금제는 필요하지 않습니다. 작은 포스터용이며 고화질 원본 저장용은 아닙니다.</p><img id="posterpreview" class="preview" alt="선택한 포스터 미리보기"><div class="editactions"><button type="button" id="clearposter">사진 제거</button><span class="smallhint" id="photosize"></span></div></div><label>설명 (한국어)</label><textarea id="descko"></textarea><label>설명 (중국어 간체)</label><textarea id="desczh"></textarea><label>설명 (일본어)</label><textarea id="descja"></textarea><label>상세 링크</label><input id="link" type="url" placeholder="https://..."><div class="editactions"><button class="primary" type="submit">일정 저장</button><button type="button" onclick="resetForm()">새 일정</button><button type="button" onclick="exportData()">일정 백업 JSON</button><button type="button" onclick="document.getElementById('importFile').click()">백업 불러오기</button><input type="file" id="importFile" accept="application/json" hidden onchange="importData(event)"></div><p class="muted" id="status"></p></form><hr style="border:0;border-top:1px solid #efd3df;margin:24px 0"><div class="smallhint" style="margin-bottom:8px">사이트 전체 설정 · 일정과 별도로 관리</div><div class="photoarea" id="bannerManager"><h3>🖼 상단 XIA 배너 사진 변경</h3><p class="smallhint">JPG·PNG·WebP 사진을 선택하세요. 자동으로 가로형 사진으로 축소하여 저장합니다. 기존 일정과 포스터는 변경되지 않습니다.</p><input id="bannerfile" type="file" accept="image/jpeg,image/png,image/webp"><img id="bannerpreview" alt="배너 미리보기" style="display:none;width:100%;max-width:720px;max-height:220px;object-fit:cover;border-radius:10px;margin-top:10px"><div class="editactions"><button type="button" class="primary" id="savebanner">배너 사진 저장</button><button type="button" id="removebanner">기본 배너로 되돌리기</button></div><p class="muted" id="bannerstatus" role="status"></p></div></section><p class="foot" id="disclaimer">팬이 개인적으로 운영하는 비공식 일정 달력입니다. 정확한 일정은 공식 공지에서 확인해 주세요.</p><div id="zoomOverlay" class="zoom-overlay hidden" role="dialog" aria-modal="true" aria-label="일정 확대 보기"><div class="zoom-card"><button type="button" class="zoom-close" id="zoomClose" aria-label="닫기">✕</button><div id="zoomContent"></div></div></div></main>
+<section class="panel admin" id="loginpanel" hidden><h3>🔐 관리자 로그인</h3><p class="muted">관리자 계정으로 로그인하면 일정 수정 화면이 열립니다. 팬은 로그인하지 않아도 달력을 볼 수 있습니다.</p><form id="loginform" class="formgrid"><div><label>이메일</label><input type="email" id="loginemail" autocomplete="username" required></div><div><label>비밀번호</label><input type="password" id="loginpassword" autocomplete="current-password" required></div><div><button class="primary" type="submit" id="loginSubmit">로그인</button></div></form><p id="loginstatus" class="muted" role="status"></p></section><section class="panel admin" id="editor" hidden><h3>일정 관리 · 한 번에 등록</h3><p class="muted">한국어로 일정 등록 후 중국어·일본어 번역은 필요할 때만 추가하세요. 각 언어를 별도로 저장할 필요는 없습니다. 일본어를 비우면 알려진 공연명·기본 표현만 자동으로 표시하며, 나머지는 한국어 원문으로 표시됩니다.</p><div class="notice" id="migration" hidden>기존 시제품에 들어 있던 11개 일정은 아직 공유되지 않았습니다. 공식 일정을 확인한 후 아래 버튼으로 Firebase에 등록할 수 있습니다. <button type="button" id="migrateBtn">기존 11개 일정 등록</button></div><div class="editactions"><button type="button" id="logoutBtn">로그아웃</button><span class="muted" id="accountStatus"></span></div><form id="eventform"><input type="hidden" id="editid"><div class="formgrid"><div><label>일정명 (한국어) *</label><input id="titleko" required></div><div><label>일정명 (중국어 간체 · 선택)</label><input id="titlezh" placeholder="번역 후 붙여넣기"></div><div><label>일정명 (일본어 · 선택)</label><input id="titleja" lang="ja" placeholder="未入力なら基本表現を自動表示"></div><div><label>날짜 *</label><input id="date" type="date" required></div><div><label>시간</label><input id="time" type="time"></div><div><label>장소 (한국어)</label><input id="placeko"></div><div><label>장소 (중국어 간체)</label><input id="placezh"></div><div><label>장소 (일본어 · 선택)</label><input id="placeja" lang="ja"></div><div><label>종류</label><select id="type"><option value="concert">콘서트</option><option value="musical">뮤지컬</option><option value="broadcast">방송</option><option value="event">행사</option><option value="ticket">티켓팅</option><option value="other">기타</option></select></div><div><label>포스터 이미지 URL (선택)</label><input id="image" type="url" placeholder="https://..."></div></div><div class="photoarea"><label for="posterfile">📷 포스터 사진 직접 선택 (JPG·PNG·WebP)</label><input type="file" id="posterfile" accept="image/jpeg,image/png,image/webp"><p class="smallhint">사진을 자동 축소해 일정 데이터에 함께 저장합니다. 별도 사진 주소나 Storage 요금제는 필요하지 않습니다. 작은 포스터용이며 고화질 원본 저장용은 아닙니다.</p><img id="posterpreview" class="preview" alt="선택한 포스터 미리보기"><div class="editactions"><button type="button" id="clearposter">사진 제거</button><span class="smallhint" id="photosize"></span></div></div><label>설명 (한국어)</label><textarea id="descko"></textarea><label>설명 (중국어 간체)</label><textarea id="desczh"></textarea><label>설명 (일본어 · 선택)</label><textarea id="descja" lang="ja"></textarea><label>상세 링크</label><input id="link" type="url" placeholder="https://..."><div class="editactions"><button class="primary" type="submit">일정 저장</button><button type="button" onclick="resetForm()">새 일정</button><button type="button" onclick="exportData()">일정 백업 JSON</button><button type="button" onclick="document.getElementById('importFile').click()">백업 불러오기</button><input type="file" id="importFile" accept="application/json" hidden onchange="importData(event)"></div><p class="muted" id="status"></p></form><hr style="border:0;border-top:1px solid #efd3df;margin:24px 0"><div class="smallhint" style="margin-bottom:8px">사이트 전체 설정 · 일정과 별도로 관리</div><div class="photoarea" id="bannerManager"><h3>🖼 상단 XIA 배너 관리</h3><p class="smallhint">사이트 전체 대표 사진입니다. 일정 포스터와 별개로 저장돼요.</p><input id="bannerfile" type="file" accept="image/jpeg,image/png,image/webp"><div class="photoarea" style="margin-top:12px"><h3 style="font-size:15px">✂️ 사진에서 보일 부분 선택</h3><button type="button" id="cropToggle" style="margin-bottom:10px">✂️ 사진 영역 다시 선택하기</button><div id="cropEditor" style="display:none"><p class="smallhint">사진을 선택하면 아래 원본에 네모칸이 나타납니다. 네모칸 안을 끌어 이동하거나 오른쪽 아래 손잡이를 끌어 크기를 조절하세요. 얼굴만 또는 전신까지 자유롭게 선택할 수 있어요.</p><div id="cropBox" style="display:none;max-width:640px;position:relative;line-height:0;touch-action:none;user-select:none;overflow:hidden;border-radius:8px;isolation:isolate"><img id="cropSource" alt="선택할 원본 사진" draggable="false" style="width:100%;height:auto;display:block;border-radius:8px"><div id="cropRect" style="position:absolute;border:3px solid #fff;outline:2px solid #9a285c;box-shadow:0 0 0 2000px #0005;cursor:move;touch-action:none;box-sizing:border-box"><div id="cropHandle" style="position:absolute;right:-9px;bottom:-9px;width:21px;height:21px;background:#fff;border:3px solid #9a285c;border-radius:4px;cursor:nwse-resize;touch-action:none"></div></div></div><div class="editactions" style="margin-top:10px"><button type="button" id="cropApply" disabled>선택한 부분 배너에 적용</button><button type="button" id="cropReset" disabled>전체 사진 다시 선택</button><button type="button" id="cropClose">✕ 편집 닫기</button></div></div><p class="smallhint" id="cropHint">사진을 올리면 선택 영역이 나타납니다.</p></div><div class="banner-preview-stage" id="bannerStage"><div class="banner-copy"><strong>XIA</strong><small>KIM JUN SU · Fan Schedule Calendar</small><small>Made with love by a fan ♡</small></div><img id="bannerpreview" class="banner-art" alt="배너 미리보기" style="display:none"></div><div class="banner-control"><label for="bannerSize">사진 표시 너비 <span id="bannerSizeValue">55%</span></label><input id="bannerSize" type="range" min="20" max="85" step="1" value="55"></div><div class="banner-control"><label for="bannerX">사진 가로 위치 <span id="bannerXValue">75%</span></label><input id="bannerX" type="range" min="50" max="95" step="1" value="75"></div><div class="banner-control"><label for="bannerHeight">배너 높이 <span id="bannerHeightValue">220px</span></label><input id="bannerHeight" type="range" min="120" max="360" step="10" value="220"></div><div class="banner-control"><label for="bannerOpacity">사진 투명도 <span id="bannerOpacityValue">90%</span></label><input id="bannerOpacity" type="range" min="0" max="100" step="5" value="90"></div><div class="banner-control"><label for="bannerFade">사진 왼쪽 경계 흐림 <span id="bannerFadeValue">55%</span></label><input id="bannerFade" type="range" min="0" max="100" step="5" value="55"></div><p class="smallhint">슬라이더를 움직이면 위 미리보기가 즉시 바뀝니다. 저장하면 방문자에게도 똑같이 보여요.</p><div class="editactions"><button type="button" class="primary" id="savebanner">배너 사진·설정 저장</button><button type="button" id="removebanner">기본 배너로 되돌리기</button></div><p class="muted" id="bannerstatus" role="status"></p></div></section><p class="foot" id="disclaimer">팬이 개인적으로 운영하는 비공식 일정 달력입니다. 정확한 일정은 공식 공지에서 확인해 주세요.</p></main>
+
+<!-- The date opens a large, scrollable detail view; all three languages use the same content. -->
+<dialog id="dayDialog" class="xia-modal" aria-labelledby="dayDialogHeading">
+  <div class="xia-modal-header"><h2 id="dayDialogHeading"></h2><button type="button" class="xia-modal-close" id="closeDayDialog" aria-label="닫기">×</button></div>
+  <div class="xia-modal-body" id="dayDialogContent"></div>
+</dialog>
+<dialog id="imageDialog" class="xia-modal xia-image-modal" aria-labelledby="imageDialogHeading">
+  <div class="xia-modal-header"><h2 id="imageDialogHeading"></h2><button type="button" class="xia-modal-close" id="closeImageDialog" aria-label="닫기">×</button></div>
+  <div class="xia-modal-body"><img id="zoomedPoster" alt=""></div>
+</dialog>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js';
 import {getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js';
@@ -58,21 +131,155 @@ const initial=[
 {id:'b1',date:'2026-11-22',time:'',titleko:'KBS 열린음악회 방송',titlezh:'KBS《开放音乐会》播出',placeko:'KBS',type:'broadcast',descko:'11월 22일 방송 예정 · 편성 확인 필요'},
 {id:'t1',date:'2026-11-23',time:'20:00',titleko:'눈콘 선예매',titlezh:'年末演唱会 优先预售',placeko:'온라인 예매',type:'ticket',descko:'한국시간 20:00 / 중국시간 19:00 · 예매처 확인 필요'},
 {id:'t2',date:'2026-11-25',time:'20:00',titleko:'눈콘 일반예매',titlezh:'年末演唱会 公开售票',placeko:'온라인 예매',type:'ticket',descko:'한국시간 20:00 / 중국시간 19:00 · 예매처 확인 필요'}
-].map(x=>({titlezh:'',placezh:'',desczh:'',image:'',link:'',...x}));
-let bannerImage='',pendingBanner='';let entries=[];let loaded=false;let currentUser=null;let adminOpen=false;let category='all';let posterData='';
-let lang='ko',year=2026,month=10,selected=null,viewMode='all',admin=false;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const words={ko:{nav:'김준수 팬 일정 달력',days:['일','월','화','수','목','금','토'],month:(y,m)=>`${y}년 ${m+1}월`,events:'공연 · 행사 일정',tabs:{all:'전체',musical:'뮤지컬',concert:'콘서트',broadcast:'방송',event:'행사',other:'기타'},empty:'등록된 일정이 없습니다.',hint:'날짜를 클릭하면 해당 날짜 일정이 표시됩니다. 전체 일정 버튼으로 돌아갈 수 있어요.',place:'장소',types:{concert:'콘서트',musical:'뮤지컬',broadcast:'방송',event:'행사',ticket:'티켓팅',other:'기타'},disclaimer:'팬이 개인적으로 운영하는 비공식 일정 달력입니다. 정확한 일정은 공식 공지에서 확인해 주세요.'},zh:{nav:'金俊秀粉丝行程日历',days:['日','一','二','三','四','五','六'],month:(y,m)=>`${y}年 ${m+1}月`,events:'演出 · 活动日程',tabs:{all:'全部',musical:'音乐剧',concert:'演唱会',broadcast:'节目',event:'活动',other:'其他'},empty:'暂无日程。',hint:'点击日期查看当天日程，或切换查看本月全部日程。',place:'地点',types:{concert:'演唱会',musical:'音乐剧',broadcast:'节目',event:'活动',ticket:'售票',other:'其他'},disclaimer:'本日历由粉丝个人运营，并非官方日程。具体信息请以官方公告为准。'},ja:{nav:'キム・ジュンス ファンスケジュール',days:['日','月','火','水','木','金','土'],month:(y,m)=>`${y}年 ${m+1}月`,events:'公演・イベント予定',tabs:{all:'すべて',musical:'ミュージカル',concert:'コンサート',broadcast:'放送',event:'イベント',other:'その他'},empty:'登録された予定はありません。',hint:'日付をタップすると、その日の予定が表示されます。',place:'場所',types:{concert:'コンサート',musical:'ミュージカル',broadcast:'放送',event:'イベント',ticket:'チケット販売',other:'その他'},disclaimer:'ファン個人が運営する非公式カレンダーです。正確な情報は公式のお知らせをご確認ください。'}};
-const jaLegacy={"드라큘라 대구 · 김준수 막공": "ミュージカル『ドラキュラ』大邱・ジュンス千秋楽", "엘리자벳 · 낮 공연": "ミュージカル『エリザベート』昼公演", "엘리자벳 · 저녁 공연": "ミュージカル『エリザベート』夜公演", "엘리자벳 · 김준수 막공": "ミュージカル『エリザベート』ジュンス千秋楽", "JX CORE 오사카": "JX CORE 大阪", "KAIST 행사": "KAIST イベント", "JX CORE 대만": "JX CORE 台湾", "KBS 열린음악회 방송": "KBS「開かれた音楽会」放送", "눈콘 선예매": "年末コンサート 先行予約", "눈콘 일반예매": "年末コンサート 一般発売", "서울 블루스퀘어": "ソウル・ブルースクエア", "대구 (세부 공연장 확인 필요)": "大邱（会場詳細は要確認）", "Asue 아레나 오사카": "Asueアリーナ大阪", "KAIST (상세 장소 확인 필요)": "KAIST（会場詳細は要確認）", "온라인 예매": "オンライン予約", "공식 공지 재확인 필요": "公式案内を再確認してください", "김준수 출연 회차 · 공식 출연표 확인 필요": "ジュンス出演回・公式キャスト表をご確認ください", "김준수 기념행사 회차 · 공식 공지 확인 필요": "ジュンス出演回・公式案内をご確認ください", "시간은 공식 공지 확인 필요": "開演時間は公式案内をご確認ください", "시간·장소 확인 필요": "時間・会場は要確認", "시간·장소 공식 공지 재확인 필요": "時間・会場は公式案内を再確認してください", "11월 22일 방송 예정 · 편성 확인 필요": "11月22日放送予定・番組表をご確認ください", "한국시간 20:00 / 중국시간 19:00 · 예매처 확인 필요": "韓国時間20:00・販売サイトをご確認ください"};
-function localText(x,field){const ko=x[field+'ko']||'';if(lang==='ja')return x[field+'ja']||jaLegacy[ko]||ko;if(lang==='zh')return x[field+'zh']||ko;return ko}
-function save(){}function language(l){lang=l;$('ko').classList.toggle('active',l==='ko');$('zh').classList.toggle('active',l==='zh');$('ja').classList.toggle('active',l==='ja');document.documentElement.lang=l;render()}function shift(n){month+=n;if(month<0){month=11;year--}if(month>11){month=0;year++}selected=null;viewMode='all';render()}
-function effectiveType(x){return x.type==='other'&&/KAIST/i.test(x.titleko||'')&&/행사/.test(x.titleko||'')?'event':x.type}function setCategory(k){category=k;render()}function setViewMode(m){if(m!=='all'&&m!=='date')return;viewMode=m;if(m==='all')selected=null;render()}function imageAllowed(u){return /^https:\/\//.test(u)||/^data:image\/jpeg;base64,[a-zA-Z0-9+/=]+$/.test(u)}function render(){const t=words[lang];$('navtitle').textContent=t.nav;$('monthtitle').textContent=t.month(year,month);$('hint').textContent=loaded?t.hint:'Firebase 일정 불러오는 중...';$('disclaimer').textContent=t.disclaimer;const c=$('calendar');c.innerHTML='';t.days.forEach(x=>{let e=document.createElement('div');e.className='weekday';e.textContent=x;c.append(e)});let first=new Date(year,month,1).getDay(),total=new Date(year,month+1,0).getDate();for(let i=0;i<first;i++){let d=document.createElement('div');d.className='day blank';c.append(d)}for(let i=1;i<=total;i++){let ds=`${year}-${String(month+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`,items=entries.filter(x=>x.date===ds),b=document.createElement('button');b.className='day'+(selected===ds?' selected':'');b.innerHTML=`<div class="num">${i}</div>`+(items.find(x=>x.image&&imageAllowed(x.image))?`<img class="cal-poster" loading="lazy" src="${esc(items.find(x=>x.image&&imageAllowed(x.image)).image)}" alt="${esc(localText(items[0],'title'))}">`:'')+items.slice(0,2).map(x=>`<div class="chip ${esc(effectiveType(x))}">${esc(localText(x,'title'))}</div>`).join('')+(items.length>2?`<div class="cal-more">+${items.length-2}</div>`:'');b.onclick=()=>{if(selected===ds&&viewMode==='date'){showDayZoom(ds);return}selected=ds;viewMode='date';render()};b.title=lang==='ja'?'日付を選択・もう一度押すと拡大':lang==='zh'?'选择日期，再次点击放大':'날짜 선택 · 다시 누르면 확대';b.querySelectorAll('.cal-poster').forEach(img=>img.addEventListener('click',e=>{e.stopPropagation();showImageZoom(img.src,img.alt)}));c.append(b)}$('eventtitle').textContent=t.events+(viewMode==='date'&&selected?' · '+selected:'');$('viewmodes').innerHTML=[['all',lang==='ko'?'이번 달 전체 일정':lang==='ja'?'今月の全予定':'本月全部日程'],['date',lang==='ko'?'선택한 날짜':lang==='ja'?'選択した日付':'所选日期']].map(([k,label])=>`<button type="button" class="${viewMode===k?'active':''}" data-view-mode="${k}" aria-pressed="${viewMode===k}">${label}</button>`).join('');$('eventtabs').innerHTML=['all','musical','concert','broadcast','event','other'].map(k=>`<button type="button" class="${category===k?'active':''}" onclick="setCategory('${k}')" aria-pressed="${category===k}">${t.tabs[k]}</button>`).join('');let list=entries.filter(x=>(category==='all'||(category==='other'?['other','ticket'].includes(effectiveType(x)):effectiveType(x)===category))&&x.date.startsWith(`${year}-${String(month+1).padStart(2,'0')}`)&&(viewMode==='all'||(selected&&x.date===selected))).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));$('events').innerHTML=viewMode==='date'&&!selected?`<p class="muted">${lang==='ko'?'달력에서 날짜를 선택해 주세요。':lang==='ja'?'カレンダーから日付を選択してください。':'请在日历中选择日期。'}</p>`:list.length?list.map(x=>`<article class="event">${x.image&&imageAllowed(x.image)?`<img class="poster" src="${esc(x.image)}" alt="poster">`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(localText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${x.placeko?`<p>📍 ${esc(localText(x,'place'))}</p>`:''}${(localText(x,'desc'))?`<p>${esc(localText(x,'desc'))}</p>`:''}${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">${lang==='ko'?'상세 보기':lang==='ja'?'詳細を見る':'查看详情'}</a></p>`:''}${admin?`<div class="editactions"><button onclick="editItem('${esc(x.id)}')">수정</button><button onclick="deleteItem('${esc(x.id)}')">삭제</button></div>`:''}</div></article>`).join(''):`<p class="muted">${t.empty}</p>`}
+].map(x=>({titlezh:'',placezh:'',desczh:'',titleja:'',placeja:'',descja:'',image:'',link:'',...x}));
+let bannerImage='',pendingBanner='';let bannerSettings={size:55,x:75,height:220,opacity:90,fade:55};let entries=[];let loaded=false;let currentUser=null;let adminOpen=false;let category='all';let posterData='';
+let lang=(()=>{try{const l=localStorage.getItem('xia_schedule_language');return ['ko','zh','ja'].includes(l)?l:'ko'}catch{return 'ko'}})(),year=2026,month=10,selected=null,viewMode='all',admin=false;const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const words={ko:{nav:'김준수 팬 일정 달력',days:['일','월','화','수','목','금','토'],month:(y,m)=>`${y}년 ${m+1}월`,events:'공연 · 행사 일정',tabs:{all:'전체',musical:'뮤지컬',concert:'콘서트',broadcast:'방송',event:'행사',other:'기타'},empty:'등록된 일정이 없습니다.',hint:'날짜를 클릭하면 해당 날짜 일정이 표시됩니다. 전체 일정 버튼으로 돌아갈 수 있어요.',place:'장소',types:{concert:'콘서트',musical:'뮤지컬',broadcast:'방송',event:'행사',ticket:'티켓팅',other:'기타'},disclaimer:'팬이 개인적으로 운영하는 비공식 일정 달력입니다. 정확한 일정은 공식 공지에서 확인해 주세요.'},zh:{nav:'金俊秀粉丝行程日历',days:['日','一','二','三','四','五','六'],month:(y,m)=>`${y}年 ${m+1}月`,events:'演出 · 活动日程',tabs:{all:'全部',musical:'音乐剧',concert:'演唱会',broadcast:'节目',event:'活动',other:'其他'},empty:'暂无日程。',hint:'点击日期查看当天日程，或切换查看本月全部日程。',place:'地点',types:{concert:'演唱会',musical:'音乐剧',broadcast:'节目',event:'活动',ticket:'售票',other:'其他'},disclaimer:'本日历由粉丝个人运营，并非官方日程。具体信息请以官方公告为准。'},ja:{nav:'キム・ジュンス ファンスケジュール',days:['日','月','火','水','木','金','土'],month:(y,m)=>`${y}年${m+1}月`,events:'公演・イベント予定',tabs:{all:'すべて',musical:'ミュージカル',concert:'コンサート',broadcast:'放送',event:'イベント',other:'その他'},empty:'登録された予定はありません。',hint:'日付をタップすると、その日の予定を表示できます。「今月の全予定」で戻れます。',place:'会場',types:{concert:'コンサート',musical:'ミュージカル',broadcast:'放送',event:'イベント',ticket:'チケット発売',other:'その他'},disclaimer:'ファンが個人で運営する非公式スケジュールです。正確な日時・会場は必ず公式発表をご確認ください。',allMonth:'今月の全予定',chosenDay:'選択した日',pickDate:'カレンダーから日付を選んでください。',details:'詳細を見る',loading:'予定を読み込み中…',adminOpen:'⚙ 管理画面を閉じる',adminClosed:'⚙ 管理者'} };
+function save(){}function language(l){if(!words[l])return;lang=l;document.documentElement.lang=l==='zh'?'zh-CN':l;for(const k of ['ko','zh','ja']){$(k).classList.toggle('active',k===l);$(k).setAttribute('aria-pressed',String(k===l))}try{localStorage.setItem('xia_schedule_language',l)}catch{}$('adminBtn').textContent=l==='ja'?(adminOpen?words.ja.adminOpen:words.ja.adminClosed):(adminOpen?'⚙ 관리자 닫기':'⚙ 관리자');render()}function shift(n){month+=n;if(month<0){month=11;year--}if(month>11){month=0;year++}selected=null;viewMode='all';render()}
+
+// Local Japanese fallback for established Junsu event phrases. No third-party translation
+// service is used. Unrecognized text remains in Korean, so editors can review it manually.
+const jaExact={
+ title:{
+  '드라큘라 대구 · 김준수 막공':'ミュージカル「ドラキュラ」大邱公演・ジュンス千秋楽',
+  '엘리자벳 · 낮 공연':'ミュージカル「エリザベート」昼公演',
+  '엘리자벳 · 저녁 공연':'ミュージカル「エリザベート」夜公演',
+  '엘리자벳 · 김준수 막공':'ミュージカル「エリザベート」ジュンス千秋楽',
+  'JX CORE 오사카':'JX CORE 大阪',
+  'KAIST 행사':'KAIST イベント',
+  'JX CORE 대만':'JX CORE 台湾',
+  'KBS 열린음악회 방송':'KBS「開かれた音楽会」放送',
+  '눈콘 선예매':'年末コンサート 先行販売',
+  '눈콘 일반예매':'年末コンサート 一般販売'
+ },
+ place:{
+  '대구 (세부 공연장 확인 필요)':'大邱（会場詳細は要確認）',
+  '서울 블루스퀘어':'ソウル・ブルースクエア',
+  'Asue 아레나 오사카':'Asueアリーナ大阪',
+  'KAIST (상세 장소 확인 필요)':'KAIST（詳細会場は要確認）',
+  'NT SU ARENA':'NT SU ARENA','KBS':'KBS',
+  '온라인 예매':'オンラインチケット販売'
+ },
+ desc:{
+  '공식 공지 재확인 필요':'公式発表を再確認してください。',
+  '김준수 출연 회차 · 공식 출연표 확인 필요':'ジュンス出演公演。最新の公式キャスト表をご確認ください。',
+  '김준수 기념행사 회차 · 공식 공지 확인 필요':'ジュンス出演公演。公式案内をご確認ください。',
+  '시간은 공식 공지 확인 필요':'開演時間は公式発表をご確認ください。',
+  '시간·장소 확인 필요':'日時・会場を確認してください。',
+  '시간·장소 공식 공지 재확인 필요':'日時・会場は公式発表で再確認してください。',
+  '11월 22일 방송 예정 · 편성 확인 필요':'11月22日放送予定。最新の番組表をご確認ください。',
+  '한국시간 20:00 / 중국시간 19:00 · 예매처 확인 필요':'日本・韓国時間20:00／中国時間19:00。販売サイトをご確認ください。'
+ }
+};
+const jaTerms=[
+ ['세미막공','千秋楽前公演'],['일반예매','一般販売'],['선예매','先行販売'],
+ ['팬미팅','ファンミーティング'],['열린음악회','開かれた音楽会'],
+ ['드라큘라','ドラキュラ'],['엘리자벳','エリザベート'],
+ ['요코하마','横浜'],['오사카','大阪'],['고베','神戸'],['마카오','マカオ'],
+ ['대만','台湾'],['홍콩','香港'],['서울','ソウル'],['부산','釜山'],['대구','大邱'],
+ ['김준수','キム・ジュンス'],['준수','ジュンス'],['눈콘','年末コンサート'],
+ ['뮤지컬','ミュージカル'],['콘서트','コンサート'],['막공','千秋楽'],
+ ['낮 공연','昼公演'],['저녁 공연','夜公演'],['공연','公演'],
+ ['방송','放送'],['행사','イベント'],['티켓팅','チケット発売'],
+ ['블루스퀘어','ブルースクエア'],['아레나','アリーナ']
+];
+function jaFallback(raw,kind){
+ if(!raw)return '';
+ const input=String(raw).trim();
+ if(jaExact[kind]?.[input])return jaExact[kind][input];
+ if(kind==='desc')return input; // Do not invent a Japanese translation for free-form notes.
+ let output=input.replace(/(\d{1,2})월/g,'$1月');
+ for(const [ko,ja] of jaTerms)output=output.split(ko).join(ja);
+ return output;
+}
+function eventText(event,kind){
+ const ko=event[kind+'ko']||'';
+ if(lang==='ko')return ko;
+ if(lang==='zh')return event[kind+'zh']||ko;
+ return event[kind+'ja']||jaFallback(ko,kind)||ko;
+}
+
+function effectiveType(x){return x.type==='other'&&/KAIST/i.test(x.titleko||'')&&/행사/.test(x.titleko||'')?'event':x.type}
+function setCategory(k){category=k;render()}
+function setViewMode(m){if(m!=='all'&&m!=='date')return;viewMode=m;if(m==='all')selected=null;render()}
+function imageAllowed(u){return typeof u==='string'&&(/^https:\/\//.test(u)||/^data:image\/jpeg;base64,[a-zA-Z0-9+/=]+$/.test(u))}
+function eventPoster(x){return x.image&&imageAllowed(x.image)?x.image:''}
+function dayItems(date){return entries.filter(x=>x.date===date).sort((a,b)=>(a.time||'').localeCompare(b.time||''))}
+const largeViewWords={
+ ko:{day:'일정 자세히 보기',image:'포스터 크게 보기',close:'닫기',zoom:'사진을 누르면 더 크게 볼 수 있어요',when:'날짜',where:'장소',details:'공식 링크',no:'이 날짜에는 등록된 일정이 없습니다.'},
+ zh:{day:'查看当天日程',image:'查看海报大图',close:'关闭',zoom:'点击海报可放大查看',when:'日期',where:'地点',details:'详情链接',no:'当天暂无日程。'},
+ ja:{day:'この日の予定を見る',image:'ポスターを拡大',close:'閉じる',zoom:'ポスターをタップすると拡大できます',when:'日時',where:'会場',details:'詳細リンク',no:'この日の予定はまだ登録されていません。'}
+};
+function calendarDateTitle(ds){const [y,m,d]=ds.split('-').map(Number);const wd=words[lang].days[new Date(y,m-1,d).getDay()];return lang==='ko'?`${y}년 ${m}월 ${d}일 (${wd})`:lang==='zh'?`${y}年${m}月${d}日 (${wd})`:`${y}年${m}月${d}日（${wd}）`}
+function expandedEventHTML(x){
+ const w=largeViewWords[lang],poster=eventPoster(x),title=eventText(x,'title'),place=eventText(x,'place'),desc=eventText(x,'desc');
+ return `<article class="xia-expanded-event">
+  <div>${poster?`<button type="button" class="xia-poster-zoom" data-poster-id="${esc(x.id)}" aria-label="${esc(w.image)}"><img class="xia-expanded-poster" src="${esc(poster)}" alt="${esc(title)}" loading="lazy"></button><p class="xia-zoom-hint">${esc(w.zoom)}</p>`:`<div class="xia-expanded-placeholder">XIA</div>`}</div>
+  <div class="xia-expanded-content"><span class="xia-expanded-label">${esc(words[lang].types[effectiveType(x)]||words[lang].types.other)}</span>
+    <h3>${esc(title)}</h3><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>
+    ${place?`<p>📍 ${esc(place)}</p>`:''}
+    ${desc?`<p>${esc(desc)}</p>`:''}
+    ${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(w.details)}</a></p>`:''}
+    <button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button type="button" data-edit-id="${esc(x.id)}">수정</button><button type="button" data-delete-id="${esc(x.id)}">삭제</button></div>`:''}
+  </div>
+ </article>`;
+}
+function refreshDayDialog(){
+ const dialog=$('dayDialog'),ds=dialog.dataset.date;if(!ds)return;
+ const w=largeViewWords[lang];$('dayDialogHeading').textContent=`${calendarDateTitle(ds)} · ${w.day}`;
+ $('closeDayDialog').setAttribute('aria-label',w.close);
+ const items=dayItems(ds);
+ $('dayDialogContent').innerHTML=items.length?items.map(expandedEventHTML).join(''):`<p class="muted">${esc(w.no)}</p>`;
+}
+function openDayDialog(date){
+ const dialog=$('dayDialog');dialog.dataset.date=date;refreshDayDialog();
+ if(typeof dialog.showModal==='function'){if(!dialog.open)dialog.showModal()}else dialog.setAttribute('open','');
+}
+function closeModal(dialog){if(typeof dialog.close==='function'&&dialog.open)dialog.close();else dialog.removeAttribute('open')}
+function openPoster(id){
+ const event=entries.find(x=>String(x.id)===String(id));if(!event||!eventPoster(event))return;
+ const dialog=$('imageDialog');$('zoomedPoster').src=event.image;$('zoomedPoster').alt=eventText(event,'title');
+ $('imageDialogHeading').textContent=eventText(event,'title');$('closeImageDialog').setAttribute('aria-label',largeViewWords[lang].close);
+ if(typeof dialog.showModal==='function'){if(!dialog.open)dialog.showModal()}else dialog.setAttribute('open','');
+}
+function render(){
+ const t=words[lang];$('navtitle').textContent=t.nav;$('monthtitle').textContent=t.month(year,month);
+ $('hint').textContent=loaded?(lang==='ko'?'날짜나 사진을 누르면 큰 포스터와 상세 일정이 열립니다.':lang==='zh'?'点击日期或海报，可放大查看当天日程。':'日付またはポスターをタップすると、大きな写真と詳細が開きます。'):(lang==='ja'?t.loading:'Firebase 일정 불러오는 중...');
+ $('disclaimer').textContent=t.disclaimer;
+ const c=$('calendar');c.innerHTML='';
+ t.days.forEach(x=>{let e=document.createElement('div');e.className='weekday';e.textContent=x;c.append(e)});
+ const first=new Date(year,month,1).getDay(),total=new Date(year,month+1,0).getDate();
+ for(let i=0;i<first;i++){let d=document.createElement('div');d.className='day blank';c.append(d)}
+ for(let i=1;i<=total;i++){
+  const ds=`${year}-${String(month+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`,items=dayItems(ds),photoEvent=items.find(x=>eventPoster(x));
+  const b=document.createElement('button');b.type='button';b.className='day'+(selected===ds?' selected':'');
+  const label=lang==='ko'?'자세히 보기':lang==='zh'?'查看详情':'詳細を見る';
+  b.setAttribute('aria-label',`${calendarDateTitle(ds)} ${items.length} ${lang==='ko'?'개 일정':lang==='zh'?'项日程':'件の予定'} · ${label}`);
+  b.innerHTML=`<div class="num">${i}</div>`
+   +(photoEvent?`<img class="cal-poster" loading="lazy" src="${esc(eventPoster(photoEvent))}" alt="${esc(eventText(photoEvent,'title'))}">`:'')
+   +items.slice(0,2).map(x=>`<div class="chip ${esc(effectiveType(x))}">${esc(eventText(x,'title'))}</div>`).join('')
+   +(items.length>2?`<div class="cal-more">+${items.length-2}</div>`:'');
+  b.onclick=()=>{selected=ds;viewMode='date';render();openDayDialog(ds)};c.append(b);
+ }
+ $('eventtitle').textContent=t.events+(viewMode==='date'&&selected?' · '+selected:'');
+ $('viewmodes').innerHTML=[['all',lang==='ko'?'이번 달 전체 일정':lang==='zh'?'本月全部日程':t.allMonth],['date',lang==='ko'?'선택한 날짜':lang==='zh'?'所选日期':t.chosenDay]].map(([k,label])=>`<button type="button" class="${viewMode===k?'active':''}" data-view-mode="${k}" aria-pressed="${viewMode===k}">${label}</button>`).join('');
+ $('eventtabs').innerHTML=['all','musical','concert','broadcast','event','other'].map(k=>`<button type="button" class="${category===k?'active':''}" onclick="setCategory('${k}')" aria-pressed="${category===k}">${t.tabs[k]}</button>`).join('');
+ const list=entries.filter(x=>(category==='all'||(category==='other'?['other','ticket'].includes(effectiveType(x)):effectiveType(x)===category))&&x.date.startsWith(`${year}-${String(month+1).padStart(2,'0')}`)&&(viewMode==='all'||(selected&&x.date===selected))).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+ $('events').innerHTML=viewMode==='date'&&!selected?`<p class="muted">${lang==='ko'?'달력에서 날짜를 선택해 주세요.':lang==='zh'?'请在日历中选择日期。':t.pickDate}</p>`:list.length?list.map(x=>{
+  const poster=eventPoster(x),desc=eventText(x,'desc'),place=eventText(x,'place');
+  return `<article class="event">${poster?`<button class="poster-open" type="button" data-poster-id="${esc(x.id)}" aria-label="${esc(largeViewWords[lang].image)}"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(eventText(x,'title'))}"></button>`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(eventText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${place?`<p>📍 ${esc(place)}</p>`:''}${desc?`<p>${esc(desc)}</p>`:''}${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">${lang==='ko'?'상세 보기':lang==='zh'?'查看详情':t.details}</a></p>`:''}<button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button onclick="editItem('${esc(x.id)}')">수정</button><button onclick="deleteItem('${esc(x.id)}')">삭제</button></div>`:''}</div></article>`;
+ }).join(''):`<p class="muted">${t.empty}</p>`;
+ const dialog=$('dayDialog');if(dialog.open&&dialog.dataset.date)refreshDayDialog();
+}
+
+function jumpToCalendar(ds){
+ const [y,m]=ds.split('-').map(Number);year=y;month=m-1;selected=ds;viewMode='date';
+ const dialog=$('dayDialog');if(dialog.open)closeModal(dialog);
+ render();document.querySelector('#calendar')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-jump-date]');if(b){e.preventDefault();jumpToCalendar(b.dataset.jumpDate)}});
 function toggleAdmin(){adminOpen=!adminOpen;syncAdminPanels();if(adminOpen)(currentUser?$('editor'):$('loginpanel')).scrollIntoView({behavior:'smooth'})}
-function syncAdminPanels(){admin=!!currentUser&&adminOpen;$('loginpanel').hidden=!adminOpen||!!currentUser;$('editor').hidden=!admin;$('adminBtn').textContent=adminOpen?'⚙ 관리자 닫기':'⚙ 관리자';$('accountStatus').textContent=currentUser?`로그인: ${currentUser.email}`:'';$('migration').hidden=!admin||entries.length>0;render()}
-$('events').addEventListener('click',e=>{const img=e.target.closest('img.poster');if(img)showImageZoom(img.src,img.alt)});
-function showImageZoom(src,alt){if(!imageAllowed(src))return;const c=$('zoomContent');c.replaceChildren();const img=document.createElement('img');img.src=src;img.alt=alt||'포스터 확대';c.append(img);$('zoomOverlay').classList.remove('hidden');document.body.style.overflow='hidden'}
-function showDayZoom(ds){const items=entries.filter(x=>x.date===ds);const c=$('zoomContent');c.replaceChildren();const h=document.createElement('h2');h.textContent=ds;c.append(h);for(const x of items){const a=document.createElement('article');a.className='event';const info=document.createElement('div');const title=document.createElement('h3');title.textContent=localText(x,'title');info.append(title);const time=document.createElement('p');time.textContent=[x.time,localText(x,'place'),localText(x,'desc')].filter(Boolean).join(' · ');info.append(time);if(x.image&&imageAllowed(x.image)){const img=document.createElement('img');img.src=x.image;img.alt=localText(x,'title');img.style.maxHeight='45dvh';img.onclick=()=>showImageZoom(x.image,localText(x,'title'));a.append(img)}a.append(info);c.append(a)}if(!items.length){const p=document.createElement('p');p.textContent=words[lang].empty;c.append(p)}$('zoomOverlay').classList.remove('hidden');document.body.style.overflow='hidden'}
-function closeZoom(){$('zoomOverlay').classList.add('hidden');document.body.style.overflow=''}
-$('zoomClose').onclick=closeZoom;$('zoomOverlay').addEventListener('click',e=>{if(e.target===$('zoomOverlay'))closeZoom()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeZoom()});
+function syncAdminPanels(){admin=!!currentUser&&adminOpen;$('loginpanel').hidden=!adminOpen||!!currentUser;$('editor').hidden=!admin;$('adminBtn').textContent=lang==='ja'?(adminOpen?words.ja.adminOpen:words.ja.adminClosed):(adminOpen?'⚙ 관리자 닫기':'⚙ 관리자');$('accountStatus').textContent=currentUser?`로그인: ${currentUser.email}`:'';$('migration').hidden=!admin||entries.length>0;render()}
 function resetForm(){posterData='';showPoster('');$('eventform').reset();$('editid').value='';$('date').value=`${year}-${String(month+1).padStart(2,'0')}-01`;$('status').textContent=''}
 function editItem(id){if(!currentUser)return;let x=entries.find(e=>e.id===id);if(!x)return;['date','time','titleko','titlezh','titleja','placeko','placezh','placeja','type','descko','desczh','descja','link'].forEach(k=>$(k).value=x[k]||'');$('type').value=effectiveType(x);$('image').value=x.image&&x.image.startsWith('https://')?x.image:'';posterData=x.image||'';showPoster(posterData);$('editid').value=id;$('editor').scrollIntoView({behavior:'smooth'})}
 async function deleteItem(id){if(!currentUser)return;if(!confirm('이 일정을 Firebase에서 삭제할까요?'))return;try{await deleteDoc(doc(db,'events',id));$('status').textContent='삭제 완료'}catch(err){$('status').textContent='삭제 실패: 관리자 권한 또는 네트워크를 확인해 주세요.';console.error(err)}}
@@ -81,21 +288,47 @@ $('loginform').onsubmit=async e=>{e.preventDefault();$('loginstatus').textConten
 $('logoutBtn').onclick=async()=>{await signOut(auth);$('status').textContent=''};
 $('migrateBtn').onclick=async()=>{if(!currentUser||entries.length)return;const message='기존 예시 일정 11개를 Firebase에 공개 등록할까요? 공식 확인이 필요한 내용도 포함되어 있습니다.';if(!confirm(message))return;const btn=$('migrateBtn');btn.disabled=true;try{const batch=writeBatch(db);initial.forEach(x=>batch.set(doc(db,'events',x.id),x));await batch.commit();$('status').textContent='기존 11개 일정 등록 완료! 내용을 하나씩 확인해 주세요.'}catch(err){$('status').textContent='등록 실패: 관리자 UID/보안 규칙을 확인해 주세요.';console.error(err)}finally{btn.disabled=false}};
 onAuthStateChanged(auth,user=>{currentUser=user;syncAdminPanels()});
-onSnapshot(eventsCollection,snapshot=>{const allDocs=snapshot.docs.map(d=>({...d.data(),id:d.id}));const bannerDoc=allDocs.find(d=>d.id==='__xia_site_banner__');bannerImage=typeof bannerDoc?.image==='string'&&/^data:image\/jpeg;base64,[a-zA-Z0-9+/=]+$/.test(bannerDoc.image)?bannerDoc.image:'';applyBanner();entries=allDocs.filter(d=>d.id!=='__xia_site_banner__');loaded=true;$('hint').dataset.loaded='true';syncAdminPanels()},err=>{console.error(err);$('hint').textContent='일정을 불러오지 못했습니다. 인터넷 연결과 Firestore 규칙을 확인해 주세요.'});
-function exportData(){let blob=new Blob([JSON.stringify(entries,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='XIA_schedule_backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}async function importData(e){let f=e.target.files[0];if(!f)return;if(!currentUser){alert('관리자 로그인이 필요합니다.');return}try{let v=JSON.parse(await f.text());if(!Array.isArray(v)||v.length>400||!v.every(x=>x.id&&/^[a-zA-Z0-9_-]{1,100}$/.test(x.id)&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)&&typeof x.titleko==='string'))throw Error('잘못된 형식');if(!confirm(`백업 파일의 ${v.length}개 일정을 Firebase에 추가/덮어쓰기 할까요? 기존의 다른 일정은 삭제되지 않습니다.`))return;let batch=writeBatch(db);v.forEach(x=>{let clean={};['date','time','titleko','titlezh','titleja','placeko','placezh','placeja','type','descko','desczh','descja','image','link'].forEach(k=>clean[k]=typeof x[k]==='string'?x[k]:'');clean.id=x.id;if(x.id!=='__xia_site_banner__')batch.set(doc(db,'events',x.id),clean)});await batch.commit();$('status').textContent='백업 가져오기 완료'}catch(err){console.error(err);alert('백업을 가져오지 못했습니다. JSON 형식이나 권한을 확인해 주세요.')}finally{e.target.value=''}}
+onSnapshot(eventsCollection,snapshot=>{const allDocs=snapshot.docs.map(d=>({...d.data(),id:d.id}));const bannerDoc=allDocs.find(d=>d.id==='xia_site_banner');bannerImage=typeof bannerDoc?.image==='string'&&/^data:image\/jpeg;base64,[a-zA-Z0-9+/=]+$/.test(bannerDoc.image)?bannerDoc.image:'';bannerSettings={size:clamp(bannerDoc?.size,20,85,55),x:clamp(bannerDoc?.x,50,95,75),height:clamp(bannerDoc?.height,120,360,220),opacity:clamp(bannerDoc?.opacity,0,100,90),fade:clamp(bannerDoc?.fade,0,100,55)};syncBannerControls();applyBanner();entries=allDocs.filter(d=>d.id!=='xia_site_banner');loaded=true;$('hint').dataset.loaded='true';syncAdminPanels()},err=>{console.error(err);$('hint').textContent='일정을 불러오지 못했습니다. 인터넷 연결과 Firestore 규칙을 확인해 주세요.'});
+function exportData(){let blob=new Blob([JSON.stringify(entries,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='XIA_schedule_backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}async function importData(e){let f=e.target.files[0];if(!f)return;if(!currentUser){alert('관리자 로그인이 필요합니다.');return}try{let v=JSON.parse(await f.text());if(!Array.isArray(v)||v.length>400||!v.every(x=>x.id&&/^[a-zA-Z0-9_-]{1,100}$/.test(x.id)&&/^\d{4}-\d{2}-\d{2}$/.test(x.date)&&typeof x.titleko==='string'))throw Error('잘못된 형식');if(!confirm(`백업 파일의 ${v.length}개 일정을 Firebase에 추가/덮어쓰기 할까요? 기존의 다른 일정은 삭제되지 않습니다.`))return;let batch=writeBatch(db);v.forEach(x=>{let clean={};['date','time','titleko','titlezh','titleja','placeko','placezh','placeja','type','descko','desczh','descja','image','link'].forEach(k=>clean[k]=typeof x[k]==='string'?x[k]:'');clean.id=x.id;if(x.id!=='xia_site_banner')batch.set(doc(db,'events',x.id),clean)});await batch.commit();$('status').textContent='백업 가져오기 완료'}catch(err){console.error(err);alert('백업을 가져오지 못했습니다. JSON 형식이나 권한을 확인해 주세요.')}finally{e.target.value=''}}
 
 // Banner is a separate document in the already-authorized events collection.
-function applyBanner(){const head=document.querySelector('header');head.classList.toggle('has-banner',!!bannerImage);head.style.backgroundImage=bannerImage?`linear-gradient(90deg,rgba(30,9,27,.78),rgba(58,18,42,.34)),url("${bannerImage}")`:'';if(!pendingBanner){const preview=$('bannerpreview');preview.style.display=bannerImage?'block':'none';if(bannerImage)preview.src=bannerImage;else preview.removeAttribute('src')}}
-$('bannerfile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const status=$('bannerstatus');if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>15*1024*1024){status.textContent='15MB 이하 JPG·PNG·WebP 파일을 선택해 주세요.';e.target.value='';return}status.textContent='배너 사진 준비 중...';try{const img=await createImageBitmap(file);const scale=Math.min(1,1500/img.width,500/img.height);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);img.close();let data='';for(const q of [.8,.65,.5,.35,.25]){data=canvas.toDataURL('image/jpeg',q);if(data.length<190000)break}if(data.length>=250000)throw Error('image too large');pendingBanner=data;const preview=$('bannerpreview');preview.src=data;preview.style.display='block';status.textContent='미리보기 준비 완료! 배너 사진 저장을 눌러 적용해 주세요.'}catch(err){console.error(err);status.textContent='사진을 처리하지 못했습니다. 다른 JPG/PNG 파일로 시도해 주세요.'}finally{e.target.value=''}});
-$('savebanner').onclick=async()=>{if(!currentUser){$('bannerstatus').textContent='관리자 로그인이 필요합니다.';return}if(!pendingBanner){$('bannerstatus').textContent='먼저 사진을 선택해 주세요.';return}const btn=$('savebanner');btn.disabled=true;$('bannerstatus').textContent='배너 저장 중...';try{await setDoc(doc(db,'events','__xia_site_banner__'),{image:pendingBanner,kind:'site-banner'});pendingBanner='';$('bannerstatus').textContent='배너 저장 완료! 방문자에게 반영됩니다.'}catch(err){console.error(err);$('bannerstatus').textContent='저장 실패: 관리자 권한 또는 인터넷 연결을 확인해 주세요.'}finally{btn.disabled=false}};
-$('removebanner').onclick=async()=>{if(!currentUser)return;if(!confirm('배너 사진을 삭제하고 기본 색상으로 돌아갈까요?'))return;try{await deleteDoc(doc(db,'events','__xia_site_banner__'));pendingBanner='';$('bannerstatus').textContent='기본 배너로 되돌렸습니다.'}catch(err){console.error(err);$('bannerstatus').textContent='삭제 실패: 관리자 권한을 확인해 주세요.'}};
+function clamp(v,min,max,fallback){const n=Number(v);return Number.isFinite(n)&&v!==undefined&&v!==null?Math.min(max,Math.max(min,n)):fallback}
+function syncBannerControls(){for(const [id,value,suffix] of [['bannerSize',bannerSettings.size,'%'],['bannerX',bannerSettings.x,'%'],['bannerHeight',bannerSettings.height,'px'],['bannerOpacity',bannerSettings.opacity,'%'],['bannerFade',bannerSettings.fade,'%']]){$(id).value=value;$(id+'Value').textContent=value+suffix}}
+function applyBanner(){const src=pendingBanner||bannerImage;for(const stage of [document.querySelector('header'),$('bannerStage')]){stage.style.setProperty('--banner-width',bannerSettings.size+'%');stage.style.setProperty('--banner-x',bannerSettings.x+'%');stage.style.setProperty('--banner-height',bannerSettings.height+'px');stage.style.setProperty('--banner-opacity',bannerSettings.opacity/100);stage.style.setProperty('--banner-fade',bannerSettings.fade+'%')}const head=document.querySelector('header');head.classList.toggle('has-banner',!!bannerImage);head.style.backgroundImage='';const actual=$('headerBannerArt'),preview=$('bannerpreview');if(bannerImage){actual.src=bannerImage;actual.style.display='block'}else{actual.style.display='none';actual.removeAttribute('src')}if(src){preview.src=src;preview.style.display='block'}else{preview.style.display='none';preview.removeAttribute('src')}}
+for(const [id,key] of [['bannerSize','size'],['bannerX','x'],['bannerHeight','height'],['bannerOpacity','opacity'],['bannerFade','fade']]){$(id).addEventListener('input',()=>{bannerSettings[key]=Number($(id).value);$(id+'Value').textContent=$(id).value+(key==='height'?'px':'%');applyBanner()})}
+let cropOriginal='',cropRect={x:.15,y:.12,w:.7,h:.76};
+function showCropSource(src){cropOriginal=src;$('cropEditor').style.display=src?'block':'none';$('cropToggle').textContent='✕ 사진 영역 선택 닫기';const box=$('cropBox');box.style.display=src?'block':'none';$('cropApply').disabled=!src;$('cropReset').disabled=!src;if(src){$('cropSource').src=src;cropRect={x:.15,y:.12,w:.7,h:.76};renderCropRect()}}
+function renderCropRect(){const r=$('cropRect');r.style.left=(cropRect.x*100)+'%';r.style.top=(cropRect.y*100)+'%';r.style.width=(cropRect.w*100)+'%';r.style.height=(cropRect.h*100)+'%'}
+$('cropClose').onclick=()=>{$('cropEditor').style.display='none';$('cropToggle').textContent='✂️ 사진 영역 다시 선택하기';$('cropHint').textContent='사진 선택창을 닫았어요. 아래 설정을 조절하세요.'};
+$('cropToggle').onclick=()=>{const editor=$('cropEditor');if(editor.style.display==='none'){if(!cropOriginal){if(pendingBanner||bannerImage)showCropSource(pendingBanner||bannerImage);else{$('cropHint').textContent='먼저 사진을 업로드해 주세요.';return}}else {editor.style.display='block';$('cropBox').style.display='block'}$('cropToggle').textContent='✕ 사진 영역 선택 닫기'}else{editor.style.display='none';$('cropToggle').textContent='✂️ 사진 영역 다시 선택하기'}};
+let cropDrag=null;
+$('cropRect').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();const box=$('cropBox').getBoundingClientRect();cropDrag={x:e.clientX,y:e.clientY,rect:{...cropRect},mode:e.target.id==='cropHandle'?'resize':'move',bw:box.width,bh:box.height};$('cropRect').setPointerCapture(e.pointerId)});
+$('cropRect').addEventListener('pointermove',e=>{if(!cropDrag)return;const d=cropDrag,dx=(e.clientX-d.x)/d.bw,dy=(e.clientY-d.y)/d.bh;if(d.mode==='move'){cropRect.x=Math.min(1-d.rect.w,Math.max(0,d.rect.x+dx));cropRect.y=Math.min(1-d.rect.h,Math.max(0,d.rect.y+dy))}else{cropRect.w=Math.min(1-d.rect.x,Math.max(.08,d.rect.w+dx));cropRect.h=Math.min(1-d.rect.y,Math.max(.08,d.rect.h+dy))}renderCropRect()});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])$('cropRect').addEventListener(event,()=>cropDrag=null);
+$('cropReset').onclick=()=>{if(cropOriginal)showCropSource(cropOriginal)};
+$('cropApply').onclick=async()=>{if(!cropOriginal)return;const status=$('cropHint');status.textContent='선택한 사진 처리 중...';try{const img=new Image();img.src=cropOriginal;await img.decode();const sx=Math.round(cropRect.x*img.naturalWidth),sy=Math.round(cropRect.y*img.naturalHeight),sw=Math.max(1,Math.round(cropRect.w*img.naturalWidth)),sh=Math.max(1,Math.round(cropRect.h*img.naturalHeight));const scale=Math.min(1,1300/sw,700/sh);const c=document.createElement('canvas');c.width=Math.max(1,Math.round(sw*scale));c.height=Math.max(1,Math.round(sh*scale));c.getContext('2d').drawImage(img,sx,sy,sw,sh,0,0,c.width,c.height);let data='';for(const q of [.85,.72,.58,.42,.28]){data=c.toDataURL('image/jpeg',q);if(data.length<190000)break}if(data.length>=250000)throw Error('선택 영역이 너무 큽니다');pendingBanner=data;applyBanner();$('cropEditor').style.display='none';$('cropToggle').textContent='✂️ 사진 영역 다시 선택하기';$('cropBox').style.display='none';status.textContent='선택 영역이 미리보기에 적용됐어요. 아래 사진·설정 저장 버튼을 눌러주세요.'}catch(err){console.error(err);status.textContent='사진 선택을 적용하지 못했습니다. 다시 시도해 주세요.'}};
+$('bannerfile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const status=$('bannerstatus');if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>15*1024*1024){status.textContent='15MB 이하 JPG·PNG·WebP 파일을 선택해 주세요.';e.target.value='';return}status.textContent='배너 사진 준비 중...';try{const img=await createImageBitmap(file);const scale=Math.min(1,1500/img.width,500/img.height);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);img.close();let data='';for(const q of [.8,.65,.5,.35,.25]){data=canvas.toDataURL('image/jpeg',q);if(data.length<190000)break}if(data.length>=250000)throw Error('image too large');pendingBanner=data;showCropSource(data);applyBanner();status.textContent='미리보기 준비 완료! 배너 사진 저장을 눌러 적용해 주세요.'}catch(err){console.error(err);status.textContent='사진을 처리하지 못했습니다. 다른 JPG/PNG 파일로 시도해 주세요.'}finally{e.target.value=''}});
+$('savebanner').onclick=async()=>{if(!currentUser){$('bannerstatus').textContent='관리자 로그인이 필요합니다.';return}if(!pendingBanner&&!bannerImage){$('bannerstatus').textContent='먼저 사진을 선택해 주세요.';return}const btn=$('savebanner');btn.disabled=true;$('bannerstatus').textContent='배너 저장 중...';try{await setDoc(doc(db,'events','xia_site_banner'),{image:pendingBanner||bannerImage,kind:'site-banner',size:bannerSettings.size,x:bannerSettings.x,height:bannerSettings.height,opacity:bannerSettings.opacity,fade:bannerSettings.fade});pendingBanner='';$('cropEditor').style.display='none';$('cropToggle').textContent='✂️ 사진 영역 다시 선택하기';$('bannerstatus').textContent='배너 저장 완료! 방문자에게 반영됩니다.'}catch(err){console.error(err);$('bannerstatus').textContent='저장 실패: 관리자 권한 또는 인터넷 연결을 확인해 주세요.'}finally{btn.disabled=false}};
+$('removebanner').onclick=async()=>{if(!currentUser)return;if(!confirm('배너 사진을 삭제하고 기본 색상으로 돌아갈까요?'))return;try{await deleteDoc(doc(db,'events','xia_site_banner'));pendingBanner='';bannerImage='';cropOriginal='';$('cropBox').style.display='none';$('cropEditor').style.display='none';$('cropToggle').textContent='✂️ 사진 영역 다시 선택하기';bannerSettings={size:55,x:75,height:220,opacity:90,fade:55};syncBannerControls();applyBanner();$('bannerstatus').textContent='기본 배너로 되돌렸습니다.'}catch(err){console.error(err);$('bannerstatus').textContent='삭제 실패: 관리자 권한을 확인해 주세요.'}};
 // Small poster photos are compressed locally and saved in the same Firestore event document.
 // This avoids a separate storage service but is intended only for small poster thumbnails.
 function showPoster(src){const el=$('posterpreview');el.classList.toggle('show',!!src&&imageAllowed(src));if(src&&imageAllowed(src))el.src=src;else el.removeAttribute('src');$('photosize').textContent=src&&src.startsWith('data:')?`압축된 사진 약 ${Math.round(src.length*.75/1024)}KB`:src?'사진 주소 사용 중':''}
 $('posterfile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)){alert('JPG, PNG, WebP 사진만 선택해 주세요.');e.target.value='';return}if(file.size>15*1024*1024){alert('15MB 이하 사진을 선택해 주세요.');e.target.value='';return}const status=$('status');status.textContent='사진을 축소하는 중...';try{const img=await createImageBitmap(file);const scale=Math.min(1,520/img.width,720/img.height);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);img.close();let data='';for(const q of [.8,.65,.5,.35]){data=canvas.toDataURL('image/jpeg',q);if(data.length<180000)break}if(data.length>=250000)throw Error('사진이 너무 큽니다. 작은 이미지를 사용해 주세요.');posterData=data;$('image').value='';showPoster(data);status.textContent='사진 준비 완료! 아래 일정 저장 버튼을 누르면 공개됩니다.'}catch(err){console.error(err);status.textContent='사진 처리 실패. JPG 또는 PNG 파일로 다시 시도해 주세요.'}finally{e.target.value=''}});
 $('clearposter').onclick=()=>{posterData='';$('image').value='';showPoster('');$('status').textContent='사진을 제거했습니다. 일정 저장을 눌러 적용해 주세요.'};
 $('image').addEventListener('input',()=>{if($('image').value.trim()){posterData='';showPoster($('image').value.trim())}});
+
+$('closeDayDialog').addEventListener('click',()=>closeModal($('dayDialog')));
+$('closeImageDialog').addEventListener('click',()=>closeModal($('imageDialog')));
+for(const id of ['dayDialog','imageDialog']){
+ const d=$(id);d.addEventListener('click',e=>{if(e.target===d)closeModal(d)});
+}
+$('dayDialogContent').addEventListener('click',e=>{
+ const poster=e.target.closest('[data-poster-id]');if(poster){openPoster(poster.dataset.posterId);return}
+ const edit=e.target.closest('[data-edit-id]');if(edit){closeModal($('dayDialog'));editItem(edit.dataset.editId);return}
+ const del=e.target.closest('[data-delete-id]');if(del){deleteItem(del.dataset.deleteId);return}
+});
+$('events').addEventListener('click',e=>{const b=e.target.closest('[data-poster-id]');if(b)openPoster(b.dataset.posterId)});
 $('viewmodes').addEventListener('click',event=>{const button=event.target.closest('button[data-view-mode]');if(!button)return;event.preventDefault();setViewMode(button.dataset.viewMode)});
 window.setViewMode=setViewMode;window.setCategory=setCategory;window.language=language;window.shift=shift;window.toggleAdmin=toggleAdmin;window.resetForm=resetForm;window.editItem=editItem;window.deleteItem=deleteItem;window.exportData=exportData;window.importData=importData;
-resetForm();render();
+resetForm();language(lang);
 </script></body></html>
