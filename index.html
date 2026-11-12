@@ -138,6 +138,28 @@ nav .actions{flex-wrap:wrap}nav .actions button{min-height:40px;white-space:nowr
  .num{font-size:13px}
  .monthbar h2{font-size:19px}
 }
+
+/* Compact controls and legible mobile calendar, without altering data or banner. */
+nav .actions{display:flex;justify-content:flex-end;align-items:center;gap:6px;flex-wrap:wrap}
+nav .actions button{width:auto;min-height:30px;padding:6px 10px;font-size:12px;border-radius:8px;line-height:1.15}
+.jump-calendar{font-size:12px!important;padding:5px 9px!important;min-height:28px!important;border-radius:7px!important;margin-top:5px}
+@media(max-width:650px){
+ nav{padding:7px 10px}
+ nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+ #navtitle{font-size:12px;margin:0}
+ nav .actions{display:flex;flex-wrap:wrap;justify-content:flex-start;width:100%;gap:5px}
+ nav .actions button{flex:0 0 auto;width:auto;min-width:0;min-height:29px;padding:6px 11px;font-size:11px}
+ #adminBtn{font-size:11px}
+ .day{min-height:111px}
+ .day:has(.cal-poster){min-height:148px}
+ .num{font-size:15px;font-weight:750}
+ .weekday{font-size:13px}
+ .chip{font-size:12px;line-height:1.35;padding:4px 3px;white-space:normal;overflow-wrap:anywhere;word-break:keep-all;-webkit-line-clamp:4}
+ .cal-more{font-size:11px}
+ .day .cal-poster{height:66px}
+ .monthbar h2{font-size:21px}
+ .jump-calendar{font-size:11px!important;padding:5px 7px!important}
+}
 </style></head><body>
 <header><img class="banner-art" id="headerBannerArt" alt="" style="display:none"><div class="wrap"><h1>XIA</h1><p>KIM JUN SU · Fan Schedule Calendar</p><p style="font-size:12px">Made with love by a fan ♡</p></div></header>
 <nav><div class="wrap"><strong id="navtitle">김준수 팬 일정 달력</strong><div class="actions"><button id="ko" class="active" onclick="language('ko')" lang="ko" aria-pressed="true"><span>KR</span><span class="language-name"> 한국어</span></button><button id="zh" onclick="language('zh')" lang="zh-CN" aria-pressed="false"><span>CN</span><span class="language-name"> 简体中文</span></button><button id="ja" onclick="language('ja')" lang="ja" aria-pressed="false"><span>JP</span><span class="language-name"> 日本語</span></button><button id="adminBtn" onclick="toggleAdmin()">⚙ 관리자</button></div></div></nav>
