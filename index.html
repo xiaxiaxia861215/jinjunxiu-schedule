@@ -160,6 +160,10 @@ nav .actions button{width:auto;min-height:30px;padding:6px 10px;font-size:12px;b
  .monthbar h2{font-size:21px}
  .jump-calendar{font-size:11px!important;padding:5px 7px!important}
 }
+ 
+.event[data-event-card]{cursor:pointer}
+.event[data-event-card]:focus-visible{outline:2px solid #92365d;outline-offset:3px}
+.event-detail-button{padding:5px 9px!important;font-size:12px!important;min-height:28px!important;border-radius:7px!important;margin:5px 5px 0 0}
 </style></head><body>
 <header><img class="banner-art" id="headerBannerArt" alt="" style="display:none"><div class="wrap"><h1>XIA</h1><p>KIM JUN SU · Fan Schedule Calendar</p><p style="font-size:12px">Made with love by a fan ♡</p></div></header>
 <nav><div class="wrap"><strong id="navtitle">김준수 팬 일정 달력</strong><div class="actions"><button id="ko" class="active" onclick="language('ko')" lang="ko" aria-pressed="true"><span>KR</span><span class="language-name"> 한국어</span></button><button id="zh" onclick="language('zh')" lang="zh-CN" aria-pressed="false"><span>CN</span><span class="language-name"> 简体中文</span></button><button id="ja" onclick="language('ja')" lang="ja" aria-pressed="false"><span>JP</span><span class="language-name"> 日本語</span></button><button id="adminBtn" onclick="toggleAdmin()">⚙ 관리자</button></div></div></nav>
@@ -301,11 +305,17 @@ function refreshDayDialog(){
  const dialog=$('dayDialog'),ds=dialog.dataset.date;if(!ds)return;
  const w=largeViewWords[lang];$('dayDialogHeading').textContent=`${calendarDateTitle(ds)} · ${w.day}`;
  $('closeDayDialog').setAttribute('aria-label',w.close);
- const items=dayItems(ds);
+ const items=dialog.dataset.eventId?dayItems(ds).filter(x=>String(x.id)===dialog.dataset.eventId):dayItems(ds);
  $('dayDialogContent').innerHTML=items.length?items.map(expandedEventHTML).join(''):`<p class="muted">${esc(w.no)}</p>`;
 }
 function openDayDialog(date){
- const dialog=$('dayDialog');dialog.dataset.date=date;refreshDayDialog();
+ const dialog=$('dayDialog');dialog.dataset.date=date;delete dialog.dataset.eventId;refreshDayDialog();
+ if(typeof dialog.showModal==='function'){if(!dialog.open)dialog.showModal()}else dialog.setAttribute('open','');
+}
+function openEventDetails(id){
+ const event=entries.find(x=>String(x.id)===String(id));if(!event)return;
+ const dialog=$('dayDialog');dialog.dataset.date=event.date;dialog.dataset.eventId=String(id);
+ refreshDayDialog();
  if(typeof dialog.showModal==='function'){if(!dialog.open)dialog.showModal()}else dialog.setAttribute('open','');
 }
 function closeModal(dialog){if(typeof dialog.close==='function'&&dialog.open)dialog.close();else dialog.removeAttribute('open')}
@@ -340,7 +350,7 @@ function render(){
  const list=entries.filter(x=>(category==='all'||(category==='other'?['other','ticket'].includes(effectiveType(x)):effectiveType(x)===category))&&x.date.startsWith(`${year}-${String(month+1).padStart(2,'0')}`)&&(viewMode==='all'||(selected&&x.date===selected))).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
  $('events').innerHTML=viewMode==='date'&&!selected?`<p class="muted">${lang==='ko'?'달력에서 날짜를 선택해 주세요.':lang==='zh'?'请在日历中选择日期。':t.pickDate}</p>`:list.length?list.map(x=>{
   const poster=eventPoster(x),desc=eventText(x,'desc'),place=eventText(x,'place');
-  return `<article class="event">${poster?`<button class="poster-open" type="button" data-poster-id="${esc(x.id)}" aria-label="${esc(largeViewWords[lang].image)}"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(eventText(x,'title'))}"></button>`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(eventText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${place?`<p>📍 ${esc(place)}</p>`:''}${desc?`<p>${esc(desc)}</p>`:''}${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">${lang==='ko'?'상세 보기':lang==='zh'?'查看详情':t.details}</a></p>`:''}<button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button onclick="editItem('${esc(x.id)}')">수정</button><button onclick="deleteItem('${esc(x.id)}')">삭제</button></div>`:''}</div></article>`;
+  return `<article class="event" data-event-card="${esc(x.id)}" tabindex="0" role="button" aria-label="${esc(eventText(x,'title'))}">${poster?`<button class="poster-open" type="button" data-poster-id="${esc(x.id)}" aria-label="${esc(largeViewWords[lang].image)}"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(eventText(x,'title'))}"></button>`:'<div class="poster">XIA</div>'}<div style="min-width:0;flex:1"><span class="tag">${t.types[effectiveType(x)]||t.types.other}</span><h4>${esc(eventText(x,'title'))}</h4><p>📅 ${esc(x.date)} ${esc(x.time||'')}</p>${place?`<p>📍 ${esc(place)}</p>`:''}${desc?`<p>${esc(desc)}</p>`:''}${x.link&&/^https:\/\//.test(x.link)?`<p><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">${lang==='ko'?'상세 보기':lang==='zh'?'查看详情':t.details}</a></p>`:''}<button type="button" class="event-detail-button" data-event-detail="${esc(x.id)}">${lang==='ko'?'상세 일정':lang==='zh'?'日程详情':'予定の詳細'}</button><button type="button" class="jump-calendar" data-jump-date="${esc(x.date)}" aria-label="${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}">📅 ${esc(lang==='ko'?'달력에서 보기':lang==='zh'?'在日历中查看':'カレンダーで見る')}</button>${admin?`<div class="editactions"><button onclick="editItem('${esc(x.id)}')">수정</button><button onclick="deleteItem('${esc(x.id)}')">삭제</button></div>`:''}</div></article>`;
  }).join(''):`<p class="muted">${t.empty}</p>`;
  const dialog=$('dayDialog');if(dialog.open&&dialog.dataset.date)refreshDayDialog();
 }
@@ -351,6 +361,13 @@ function jumpToCalendar(ds){
  render();document.querySelector('#calendar')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-jump-date]');if(b){e.preventDefault();jumpToCalendar(b.dataset.jumpDate)}});
+document.addEventListener('click',e=>{
+ const detail=e.target.closest('[data-event-detail]');
+ if(detail){e.preventDefault();openEventDetails(detail.dataset.eventDetail);return}
+ const card=e.target.closest('[data-event-card]');
+ if(card&&!e.target.closest('button,a,input,select,textarea'))openEventDetails(card.dataset.eventCard);
+});
+document.addEventListener('keydown',e=>{const card=e.target.closest('[data-event-card]');if(card&&(e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();openEventDetails(card.dataset.eventCard)}});
 function toggleAdmin(){adminOpen=!adminOpen;syncAdminPanels();if(adminOpen)(currentUser?$('editor'):$('loginpanel')).scrollIntoView({behavior:'smooth'})}
 function syncAdminPanels(){admin=!!currentUser&&adminOpen;$('loginpanel').hidden=!adminOpen||!!currentUser;$('editor').hidden=!admin;$('adminBtn').textContent=lang==='ja'?(adminOpen?words.ja.adminOpen:words.ja.adminClosed):(adminOpen?'⚙ 관리자 닫기':'⚙ 관리자');$('accountStatus').textContent=currentUser?`로그인: ${currentUser.email}`:'';$('migration').hidden=!admin||entries.length>0;render()}
 function resetForm(){posterData='';showPoster('');$('eventform').reset();$('editid').value='';$('date').value=`${year}-${String(month+1).padStart(2,'0')}-01`;$('status').textContent=''}
