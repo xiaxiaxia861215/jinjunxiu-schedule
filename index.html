@@ -87,6 +87,57 @@ nav .actions{flex-wrap:wrap}nav .actions button{min-height:40px;white-space:nowr
  .xia-image-modal{width:calc(100vw - 6px);max-height:98dvh}
  .xia-image-modal .xia-modal-body{height:calc(98dvh - 66px);max-height:calc(98dvh - 66px)}
 }
+
+/* Mobile-only refinement: desktop layout and saved banner crop settings untouched. */
+@media (max-width:650px) {
+  nav{padding:7px 10px}
+  #navtitle{margin-bottom:6px;font-size:12px}
+  nav .actions{gap:4px}
+  nav .actions button{min-height:32px;padding:6px 2px;font-size:11px;border-radius:8px;line-height:1.15}
+  #adminBtn{font-size:10px}
+  main{padding:0 5px;margin:12px auto}
+  .layout{gap:12px}
+  .panel{padding:10px 7px;border-radius:13px}
+  .monthbar h2{font-size:19px}
+  .days{gap:3px;margin-top:9px}
+  .weekday{font-size:12px;padding:5px 0}
+  .day{padding:5px 3px;gap:4px;min-height:108px;border-radius:7px;overflow:hidden}
+  .day:has(.cal-poster){min-height:145px}
+  .num{font-size:13px}
+  .day .cal-poster{height:66px;object-fit:cover}
+  .chip{font-size:10.5px;line-height:1.32;padding:3px 2px;white-space:normal;overflow-wrap:anywhere;text-overflow:clip;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-top:1px}
+  .cal-more{font-size:10px}
+  .event h4{font-size:14px}
+  .event p{font-size:12px}
+}
+@media(max-width:375px){
+ .chip{font-size:10px}
+ .day{padding:4px 2px}
+}
+
+/* Final adaptive layouts: preserve banner settings and all event logic. */
+@media (min-width:1100px){
+ .layout{grid-template-columns:minmax(0,3fr) minmax(290px,1fr)}
+}
+@media (min-width:901px) and (max-width:1099px){
+ .layout{grid-template-columns:minmax(0,2.5fr) minmax(280px,1fr)}
+}
+@media(max-width:900px){
+ .layout{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:650px){
+ nav .actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;width:100%}
+ nav .actions button{width:100%;min-width:0;min-height:32px;padding:7px 1px;font-size:11px;white-space:nowrap}
+ main{padding:0 4px}
+ .panel{padding:9px 6px}
+ .days{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+ .day{min-width:0;min-height:108px;padding:4px 2px}
+ .day:has(.cal-poster){min-height:145px}
+ .day .cal-poster{height:66px}
+ .chip{font-size:10px;line-height:1.3;white-space:normal;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+ .num{font-size:13px}
+ .monthbar h2{font-size:19px}
+}
 </style></head><body>
 <header><img class="banner-art" id="headerBannerArt" alt="" style="display:none"><div class="wrap"><h1>XIA</h1><p>KIM JUN SU · Fan Schedule Calendar</p><p style="font-size:12px">Made with love by a fan ♡</p></div></header>
 <nav><div class="wrap"><strong id="navtitle">김준수 팬 일정 달력</strong><div class="actions"><button id="ko" class="active" onclick="language('ko')" lang="ko" aria-pressed="true"><span>KR</span><span class="language-name"> 한국어</span></button><button id="zh" onclick="language('zh')" lang="zh-CN" aria-pressed="false"><span>CN</span><span class="language-name"> 简体中文</span></button><button id="ja" onclick="language('ja')" lang="ja" aria-pressed="false"><span>JP</span><span class="language-name"> 日本語</span></button><button id="adminBtn" onclick="toggleAdmin()">⚙ 관리자</button></div></div></nav>
